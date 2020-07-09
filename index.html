@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Raw text:<br />
+    <textarea name="rawText" id="raw" cols="100" rows="20">
+blalalla @mail haloo best@mail.com clala nume123@gmail.eu @lot.com  yahoo.com  lore-bs@yahoo.io blalla .com
+      blalalla @mail haloo best@mail.com clala nume@gmail.eu @lot.com  yahoo.com  lore@yahoo.io blalla .com
+      blalalla @mail haloo best@mail.com clala nume123@gmail.eu @lot.com  yahoo.com  lore_ls@yahoo.io blalla .com
+      blalalla @mail haloo best@mail.com clala nume@gmail.eu @lot.com  yahoo.com  lore@yahoo.io blalla .com
+      blalalla @mail haloo best.me@mail.com clala nume123@gmail.eu @lot.com  yahoo.com  lore-bs@yahoo.io blalla .com
+      blalalla @mail haloo best@mail.com clala nume@gmail.eu @lot.com  yahoo.com  lore@yahoo.io blalla .com
+      blalalla @mail haloo best.me@mail.com clala nume123@gmail.eu @lot.com  yahoo.com  lore_ls@yahoo.io blalla .com
+      blalalla @mail haloo best@mail.com clala nume@gmail.eu @lot.com  yahoo.com  lore@yahoo.io blalla .com
+</textarea
+    >
+    <br />
+    <button type="button">Get Emails</button>
+    <br />
+    <span>Emails from raw text:</span>
+    <br />
+    <textarea name="output" id="out" cols="100" rows="20"></textarea>
+
+    <script>
+      const rawText = document.querySelector('#raw');
+      const outText = document.querySelector('#out');
+      const btn = document.querySelector('button');
+      let count = document.querySelector('span');
+
+      btn.addEventListener('click', function () {
+        let temp = rawText.value;
+        let select = /([A-Za-z.-_0-9]+@[A-Za-z.-_0-9]+\.[A-Za-z.-_0-9]+)/gi;
+        let emailSelect = temp.match(select);
+
+        let outEmails = [];
+        for (let i = 0; i < emailSelect.length; i++) {
+          if (outEmails.indexOf(emailSelect[i]) == -1) {
+            outEmails.push(emailSelect[i]);
+          }
+        }
+
+        let emails = outEmails.join('/--/');
+        count.innerText = 'U have:' + outEmails.length + 'selected emails';
+        outText.innerHTML = emails;
+        outText.addEventListener('click', function () {
+          this.select();
+        });
+      });
+    </script>
+  </body>
+</html>
